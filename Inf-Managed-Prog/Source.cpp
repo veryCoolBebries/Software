@@ -17,26 +17,26 @@ int main() {
 	checkRuntimeFunction(selectionSort, "Selection Sort", out);
 	checkRuntimeFunction(quickSort, "Quick Sort", out);
 }
-// Сортировка выбором
+// РЎРѕСЂС‚РёСЂРѕРІРєР° РІС‹Р±РѕСЂРѕРј
 void selectionSort(int* array, int size) {
 	for (int i = 0; i < size; i++)
 	{
 		int minIndex = i;
 		for (int j = i + 1; j < size; j++)
-			// Идём от выбранного элемента до конца
-			// пока и ищем элемент меньше
+			// РРґС‘Рј РѕС‚ РІС‹Р±СЂР°РЅРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р° РґРѕ РєРѕРЅС†Р°
+			// РїРѕРєР° Рё РёС‰РµРј СЌР»РµРјРµРЅС‚ РјРµРЅСЊС€Рµ
 		{
 			if (array[j] < array[minIndex]) {
 				minIndex = j;
 			}
 		}
-		// Меняем найденный элемент с выбранным
+		// РњРµРЅСЏРµРј РЅР°Р№РґРµРЅРЅС‹Р№ СЌР»РµРјРµРЅС‚ СЃ РІС‹Р±СЂР°РЅРЅС‹Рј
 		int temp = array[i];
 		array[i] = array[minIndex];
 		array[minIndex] = temp;
 	}
 }
-// Быстрая сортировка
+// Р‘С‹СЃС‚СЂР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
 void quickSort(int* array, int size) {
 
 	int left = 0;
@@ -61,19 +61,19 @@ void quickSort(int* array, int size) {
 	if (right > 0) quickSort(array, right + 1);
 	if (left < size) quickSort(&array[left], size - left);
 }
-// Функция проверки времени работы
+// Р¤СѓРЅРєС†РёСЏ РїСЂРѕРІРµСЂРєРё РІСЂРµРјРµРЅРё СЂР°Р±РѕС‚С‹
 void checkRuntimeFunction(FunctionSort func, string funcName, ofstream& out) {
 	out << endl << funcName << ";";
 	cout << "Checking " << funcName << " function..." << endl << endl;
 	int sizes[] = { 100,10000,1000 };
 	for (int size : sizes) {
 		int* array = new int[size];
-		randSequence(array, size, 0, size * 10);// Заполяем массив для поиска
+		randSequence(array, size, 0, size * 10);// Р—Р°РїРѕР»СЏРµРј РјР°СЃСЃРёРІ РґР»СЏ РїРѕРёСЃРєР°
 		out << size << ";";
-		auto begin = chrono::steady_clock::now();// Засекаем время
+		auto begin = chrono::steady_clock::now();// Р—Р°СЃРµРєР°РµРј РІСЂРµРјСЏ
 		func(array, size);
 		auto end = chrono::steady_clock::now();
-		// Замеряем работу функции и выводим время работы
+		// Р—Р°РјРµСЂСЏРµРј СЂР°Р±РѕС‚Сѓ С„СѓРЅРєС†РёРё Рё РІС‹РІРѕРґРёРј РІСЂРµРјСЏ СЂР°Р±РѕС‚С‹
 		out <<(chrono::duration_cast<std::chrono::microseconds>(end - begin)).count() << endl << ";";
 		delete[] array;
 	}
